@@ -3,15 +3,12 @@ import 'package:logger/logger.dart';
 
 final Logger logger = Logger();
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp(key: Key("MyApp")));
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
   static const String appTitle = "Movie Getter";
   static const Color primaryColor = Color.fromARGB(255, 11, 17, 36);
-
-  void buttonPressed() {
-    logger.i('Button Pressed!');
-  }
 
   TextStyle getTextStyle() {
     return const TextStyle(
@@ -24,25 +21,43 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      key: const Key("Movie Getter"),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text(appTitle),
-          centerTitle: true,
-          backgroundColor: primaryColor,
+    return const MaterialApp(
+      key: Key("Movie Getter"),
+      home: MyHomePage(),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({Key? key}) : super(key: key);
+
+  @override
+  MyHomePageState createState() => MyHomePageState();
+}
+
+class MyHomePageState extends State<MyHomePage> {
+  void buttonPressed() {
+    logger.i('Button Pressed!');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(MyApp.appTitle),
+        centerTitle: true,
+        backgroundColor: MyApp.primaryColor,
+      ),
+      body: const Center(
+        child: Text(
+          "Hello",
+          style: TextStyle(),
         ),
-        body: const Center(
-          child: Text(
-            "Hello",
-            style: TextStyle(),
-          ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: buttonPressed,
-          backgroundColor: primaryColor,
-          child: const Text("Click"),
-        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: buttonPressed,
+        backgroundColor: MyApp.primaryColor,
+        child: const Text("Click"),
       ),
     );
   }
