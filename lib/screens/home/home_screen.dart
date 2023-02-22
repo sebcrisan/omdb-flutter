@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'search_delegate.dart';
-import 'my_app.dart';
+import '../../my_app.dart';
 
 final Logger logger = Logger();
 

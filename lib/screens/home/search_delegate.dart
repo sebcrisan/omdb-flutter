@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_getter/movie.dart';
+import 'package:movie_getter/data/movie.dart';
 
 class MovieSearchDelegate extends SearchDelegate<String> {
   @override
