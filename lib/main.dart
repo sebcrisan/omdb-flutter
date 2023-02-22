@@ -18,12 +18,14 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: const Text("Movie Getter"),
           centerTitle: true,
+          backgroundColor: Color.fromARGB(255, 11, 17, 36),
         ),
         body: const Center(
           child: Text("Hello"),
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: buttonPressed,
+          backgroundColor: Color.fromARGB(255, 11, 17, 36),
           child: const Text("Click"),
         ),
       ),
