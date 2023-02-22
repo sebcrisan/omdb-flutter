@@ -129,14 +129,14 @@ class MovieSearchDelegate extends SearchDelegate<String> {
       future: searchMovies(query),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
 
         if (snapshot.hasData) {
           final movies = snapshot.data as List<Movie>;
 
           if (movies.isEmpty) {
-            return Center(child: Text('No results found'));
+            return const Center(child: Text('No results found'));
           }
 
           return ListView.builder(
@@ -155,7 +155,7 @@ class MovieSearchDelegate extends SearchDelegate<String> {
           );
         }
 
-        return Center(child: Text('An error occurred'));
+        return const Center(child: Text('An error occurred'));
       },
     );
   }
