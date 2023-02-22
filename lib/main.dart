@@ -1,10 +1,13 @@
 import "package:flutter/material.dart";
+import 'package:logger/logger.dart';
+
+final Logger logger = Logger();
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   void buttonPressed() {
-    print("Button Pressed!");
+    logger.i('Button Pressed!');
   }
 
   @override
