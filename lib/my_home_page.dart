@@ -13,10 +13,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class MyHomePageState extends State<MyHomePage> {
-  void buttonPressed() {
-    logger.i('Button Pressed!');
-  }
-
   void searchMovies(BuildContext context) async {
     final result = await showSearch<String>(
       context: context,
@@ -53,11 +49,6 @@ class MyHomePageState extends State<MyHomePage> {
             color: Colors.grey,
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: buttonPressed,
-        backgroundColor: MyApp.primaryColor,
-        child: const Text("Click"),
       ),
     );
   }
