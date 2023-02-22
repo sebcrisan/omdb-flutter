@@ -9,15 +9,7 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   static const String appTitle = "Movie Getter";
   static const Color primaryColor = Color.fromARGB(255, 11, 17, 36);
-
-  TextStyle getTextStyle() {
-    return const TextStyle(
-      fontSize: 20,
-      fontWeight: FontWeight.bold,
-      letterSpacing: 2.0,
-      color: Colors.grey,
-    );
-  }
+  static const Color secondaryColor = Color.fromARGB(255, 19, 37, 85);
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +35,7 @@ class MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: MyApp.secondaryColor,
       appBar: AppBar(
         title: const Text(MyApp.appTitle),
         centerTitle: true,
@@ -51,7 +44,12 @@ class MyHomePageState extends State<MyHomePage> {
       body: const Center(
         child: Text(
           "Hello",
-          style: TextStyle(),
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 2.0,
+            color: Colors.grey,
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
