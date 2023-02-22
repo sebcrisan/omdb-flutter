@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:logger/logger.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 final Logger logger = Logger();
 
@@ -149,12 +150,46 @@ class MovieSearchDelegate extends SearchDelegate<String> {
 }
 
 Future<List<Movie>> searchMovies(String query) async {
-  logger.i("Searching for: $query");
-  Movie testMovie = Movie();
-  return [testMovie];
+  final apiKey = 'apikey'; // TODO: Replace with own api key in a safe way
+  final url = Uri.parse('http://www.omdbapi.com/?apikey=$apiKey&s=$query');
+
+  final response = await http.get(url);
+
+  if (response.statusCode == 200) {
+    final jsonData = jsonDecode(response.body);
+
+    if (jsonData['Response'] == 'True') {
+      final List<dynamic> searchResults = jsonData['Search'];
+
+      final List<Movie> movies =
+          searchResults.map((result) => Movie.fromJson(result)).toList();
+
+      return movies;
+    }
+  }
+
+  return [];
 }
 
 class Movie {
-  String title = "Test Title";
-  String imdbID = "tt201538";
+  final String imdbID;
+  final String title;
+  final String year;
+  final String poster;
+
+  Movie({
+    required this.imdbID,
+    required this.title,
+    required this.year,
+    required this.poster,
+  });
+
+  factory Movie.fromJson(Map<String, dynamic> json) {
+    return Movie(
+      imdbID: json['imdbID'],
+      title: json['Title'],
+      year: json['Year'],
+      poster: json['Poster'],
+    );
+  }
 }
