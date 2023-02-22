@@ -21,7 +21,15 @@ class MyApp extends StatelessWidget {
           backgroundColor: Color.fromARGB(255, 11, 17, 36),
         ),
         body: const Center(
-          child: Text("Hello"),
+          child: Text(
+            "Hello",
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 2.0,
+              color: Colors.grey,
+            ),
+          ),
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: buttonPressed,
