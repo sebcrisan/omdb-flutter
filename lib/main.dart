@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:logger/logger.dart';
+import 'package:http/http.dart';
 
 final Logger logger = Logger();
 
@@ -32,6 +33,17 @@ class MyHomePageState extends State<MyHomePage> {
     logger.i('Button Pressed!');
   }
 
+  void searchMovies(BuildContext context) async {
+    final result = await showSearch<String>(
+      context: context,
+      delegate: MovieSearchDelegate(),
+    );
+
+    if (result != null) {
+      // Do something with the selected movie
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,13 +53,9 @@ class MyHomePageState extends State<MyHomePage> {
         // centerTitle: true,
         actions: [
           IconButton(
-              onPressed: () {
-                showSearch(
-                  context: context,
-                  delegate: CustomSearchDelegate(),
-                );
-              },
-              icon: const Icon(Icons.search))
+            onPressed: () => searchMovies(context),
+            icon: const Icon(Icons.search),
+          ),
         ],
         backgroundColor: MyApp.primaryColor,
       ),
@@ -71,62 +79,39 @@ class MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class CustomSearchDelegate extends SearchDelegate {
-  List<String> searchTerms = ['Apple', 'Banana', 'Pear', 'Watermelons'];
+class MovieSearchDelegate extends SearchDelegate<String> {
+  @override
+  String get searchFieldLabel => "Search for movies...";
 
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(
-          onPressed: () {
-            query = "";
-          },
-          icon: const Icon(Icons.clear))
+        icon: const Icon(Icons.clear),
+        onPressed: () {
+          query = "";
+        },
+      ),
     ];
   }
 
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
-        onPressed: () {
-          close(context, null);
-        },
-        icon: const Icon(Icons.arrow_back));
+      icon: const Icon(Icons.arrow_back),
+      onPressed: () {
+        close(context, "");
+      },
+    );
   }
 
   @override
   Widget buildResults(BuildContext context) {
-    List<String> matchQuery = [];
-    for (var fruit in searchTerms) {
-      if (fruit.toLowerCase().contains(query.toLowerCase())) {
-        matchQuery.add(fruit);
-      }
-    }
-    return ListView.builder(
-        itemCount: matchQuery.length,
-        itemBuilder: (context, index) {
-          var result = matchQuery[index];
-          return ListTile(
-            title: Text(result),
-          );
-        });
+    return Text("Results for $query");
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    List<String> matchQuery = [];
-    for (var fruit in searchTerms) {
-      if (fruit.toLowerCase().contains(query.toLowerCase())) {
-        matchQuery.add(fruit);
-      }
-    }
-    return ListView.builder(
-        itemCount: matchQuery.length,
-        itemBuilder: (context, index) {
-          var result = matchQuery[index];
-          return ListTile(
-            title: Text(result),
-          );
-        });
+    return Container();
   }
 }
