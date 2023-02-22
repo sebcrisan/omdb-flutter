@@ -1,11 +1,28 @@
 import "package:flutter/material.dart";
 import 'package:logger/logger.dart';
 import 'package:http/http.dart' as http;
+import 'dart:io';
 import 'dart:convert';
 
 final Logger logger = Logger();
 
-void main() => runApp(const MyApp(key: Key("MyApp")));
+class Config {
+  static Map<String, dynamic> _config = {};
+
+  static Future<void> load() async {
+    final file = File('config.json');
+    final contents = await file.readAsString();
+    _config = json.decode(contents);
+  }
+
+  static String get apiKey => _config['apiKey'];
+}
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Config.load();
+  runApp(const MyApp(key: Key("MyApp")));
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -109,7 +126,7 @@ class MovieSearchDelegate extends SearchDelegate<String> {
   @override
   Widget buildResults(BuildContext context) {
     return FutureBuilder(
-      future: searchMovies(query), // TODO: Implement searchMovies
+      future: searchMovies(query),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());
@@ -150,7 +167,7 @@ class MovieSearchDelegate extends SearchDelegate<String> {
 }
 
 Future<List<Movie>> searchMovies(String query) async {
-  final apiKey = 'apikey'; // TODO: Replace with own api key in a safe way
+  final apiKey = Config.apiKey;
   final url = Uri.parse('http://www.omdbapi.com/?apikey=$apiKey&s=$query');
 
   final response = await http.get(url);
