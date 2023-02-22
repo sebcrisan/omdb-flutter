@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:logger/logger.dart';
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 
 final Logger logger = Logger();
 
@@ -107,11 +107,54 @@ class MovieSearchDelegate extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
-    return Text("Results for $query");
+    return FutureBuilder(
+      future: searchMovies(query), // TODO: Implement searchMovies
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        }
+
+        if (snapshot.hasData) {
+          final movies = snapshot.data as List<Movie>;
+
+          if (movies.isEmpty) {
+            return Center(child: Text('No results found'));
+          }
+
+          return ListView.builder(
+            itemCount: movies.length,
+            itemBuilder: (context, index) {
+              final movie = movies[index];
+
+              return ListTile(
+                title: Text(movie.title),
+                onTap: () {
+                  // Return the selected movie
+                  close(context, movie.imdbID);
+                },
+              );
+            },
+          );
+        }
+
+        return Center(child: Text('An error occurred'));
+      },
+    );
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
     return Container();
   }
+}
+
+Future<List<Movie>> searchMovies(String query) async {
+  logger.i("Searching for: $query");
+  Movie testMovie = Movie();
+  return [testMovie];
+}
+
+class Movie {
+  String title = "Test Title";
+  String imdbID = "tt201538";
 }
