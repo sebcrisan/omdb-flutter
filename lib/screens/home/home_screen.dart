@@ -13,6 +13,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class MyHomePageState extends State<MyHomePage> {
+  String selectedMovie = '';
+
   void searchMovies(BuildContext context) async {
     final result = await showSearch<String>(
       context: context,
@@ -21,11 +23,32 @@ class MyHomePageState extends State<MyHomePage> {
 
     if (result != null) {
       // Do something with the selected movie
+      setState(() {
+        selectedMovie = result;
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    Widget bodyWidget;
+
+    if (selectedMovie.isEmpty) {
+      bodyWidget = const Center(
+        child: Text(
+          "Search Movies",
+          style: Config.mainMsgStyle,
+        ),
+      );
+    } else {
+      bodyWidget = Center(
+        child: Text(
+          "Selected Movie: $selectedMovie",
+          style: Config.mainMsgStyle,
+        ),
+      );
+    }
+
     return Scaffold(
       backgroundColor: Config.secondaryColor,
       appBar: AppBar(
@@ -39,12 +62,7 @@ class MyHomePageState extends State<MyHomePage> {
         ],
         backgroundColor: Config.primaryColor,
       ),
-      body: const Center(
-        child: Text(
-          "Search Movies",
-          style: Config.mainMsgStyle,
-        ),
-      ),
+      body: bodyWidget,
     );
   }
 }
