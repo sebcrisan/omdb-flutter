@@ -28,17 +28,6 @@ class MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyApp.secondaryColor,
-      // appBar: AppBar(
-      //   title: const Text(MyApp.appTitle),
-      //   centerTitle: true,
-      //   actions: [
-      //     Center(
-      //       child: IconButton(
-      //         onPressed: () => searchMovies(context),
-      //         icon: const Icon(Icons.search),
-      //       ),
-      //     ),
-      //   ],
       appBar: AppBar(
         actions: [
           const Spacer(),
