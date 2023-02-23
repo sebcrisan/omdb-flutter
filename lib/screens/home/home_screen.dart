@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
 import 'search_delegate.dart';
 import "package:movie_getter/config/app_config.dart";
 import "package:movie_getter/data/movie.dart";
-
-final Logger logger = Logger();
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -23,7 +20,6 @@ class MyHomePageState extends State<MyHomePage> {
     );
 
     if (result != null) {
-      // Do something with the selected movie
       setState(() {
         selectedMovie = result;
       });
@@ -55,13 +51,22 @@ class MyHomePageState extends State<MyHomePage> {
             const SizedBox(height: 20),
             Text(
               selectedMovie.year,
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
             ),
-            const SizedBox(height: 20),
-            Text(
-              'Plot: "This is the plot',
-              style: TextStyle(color: Colors.white),
-            ),
+            FutureBuilder(
+                future: searchMovie(selectedMovie.imdbID),
+                builder: (context, movie) {
+                  if (movie.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  if (movie.hasData) {
+                    return Text(
+                      "${movie.data?.plot}",
+                      style: const TextStyle(color: Colors.white),
+                    );
+                  }
+                  return const Text("No Plot");
+                }),
           ],
         ),
       );
@@ -81,30 +86,6 @@ class MyHomePageState extends State<MyHomePage> {
         backgroundColor: Config.primaryColor,
       ),
       body: bodyWidget,
-      // body: Center(
-      //   child: Column(
-      //     mainAxisAlignment: MainAxisAlignment.center,
-      //     children: [
-      //       Text(
-      //         "Movie Title",
-      //         style: Config.mainMsgStyle,
-      //       ),
-      //       const SizedBox(height: 20),
-      //       Image.network(
-      //           "https://m.media-amazon.com/images/M/MV5BMjE0NDQ0Mzg2Nl5BMl5BanBnXkFtZTcwNTcwMzEwMg@@._V1_SX300.jpg"),
-      //       const SizedBox(height: 20),
-      //       Text(
-      //         'Year: 1994',
-      //         style: TextStyle(color: Colors.white),
-      //       ),
-      //       const SizedBox(height: 20),
-      //       Text(
-      //         'Plot: "This is the plot',
-      //         style: TextStyle(color: Colors.white),
-      //       ),
-      //     ],
-      //   ),
-      // ),
     );
   }
 }
