@@ -42,12 +42,7 @@ class MyHomePageState extends State<MyHomePage> {
       body: const Center(
         child: Text(
           "Search Movies",
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            letterSpacing: 2.0,
-            color: Colors.grey,
-          ),
+          style: Config.mainMsgStyle,
         ),
       ),
     );
