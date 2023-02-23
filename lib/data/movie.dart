@@ -7,13 +7,14 @@ class Movie {
   final String title;
   final String year;
   final String poster;
+  final String? plot;
 
-  Movie({
-    required this.imdbID,
-    required this.title,
-    required this.year,
-    required this.poster,
-  });
+  Movie(
+      {required this.imdbID,
+      required this.title,
+      required this.year,
+      required this.poster,
+      this.plot});
 
   factory Movie.fromJson(Map<String, dynamic> json) {
     return Movie(
@@ -21,6 +22,7 @@ class Movie {
       title: json['Title'],
       year: json['Year'],
       poster: json['Poster'],
+      plot: json['Plot'],
     );
   }
 }
@@ -46,4 +48,21 @@ Future<List<Movie>> searchMovies(String query) async {
   }
 
   return [];
+}
+
+Future<Movie> searchMovie(String imdbID) async {
+  final apiKey = Config.apiKey;
+  final url = Uri.parse('http://www.omdbapi.com/?apikey=$apiKey&i=$imdbID');
+
+  final response = await http.get(url);
+
+  if (response.statusCode == 200) {
+    final jsonData = jsonDecode(response.body);
+    if (jsonData['Response'] == 'True') {
+      final Movie movie = Movie.fromJson(jsonData);
+      return movie;
+    }
+  }
+
+  return Movie(title: "", imdbID: "", year: "", poster: "", plot: "");
 }
