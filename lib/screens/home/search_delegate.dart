@@ -44,12 +44,17 @@ class MovieSearchDelegate extends SearchDelegate<String> {
           }
 
           return ListView.builder(
+            padding: EdgeInsets.only(top: 15),
             itemCount: movies.length,
             itemBuilder: (context, index) {
               final movie = movies[index];
 
               return ListTile(
                 title: Text(movie.title),
+                leading: CircleAvatar(
+                  backgroundImage: NetworkImage(movie.poster),
+                ),
+                trailing: Text(movie.year),
                 onTap: () {
                   // Return the selected movie
                   close(context, movie.imdbID);
