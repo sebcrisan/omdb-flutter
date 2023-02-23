@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_getter/data/movie.dart';
 import "package:movie_getter/config/app_config.dart";
 
-class MovieSearchDelegate extends SearchDelegate<String> {
+class MovieSearchDelegate extends SearchDelegate<Movie> {
   @override
   String get searchFieldLabel => "Search for movies...";
 
@@ -23,7 +23,7 @@ class MovieSearchDelegate extends SearchDelegate<String> {
     return IconButton(
       icon: const Icon(Icons.arrow_back),
       onPressed: () {
-        close(context, "");
+        close(context, Movie(imdbID: "", title: "", year: "", poster: ""));
       },
     );
   }
@@ -67,7 +67,7 @@ class MovieSearchDelegate extends SearchDelegate<String> {
                     trailing: Text(movie.year),
                     onTap: () {
                       // Return the selected movie
-                      close(context, movie.imdbID);
+                      close(context, movie);
                     },
                   ),
                 );
