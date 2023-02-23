@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'search_delegate.dart';
-import '../../my_app.dart';
+import "package:movie_getter/config/app_config.dart";
 
 final Logger logger = Logger();
 
@@ -27,7 +27,7 @@ class MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyApp.secondaryColor,
+      backgroundColor: Config.secondaryColor,
       appBar: AppBar(
         actions: [
           const Spacer(),
@@ -37,17 +37,12 @@ class MyHomePageState extends State<MyHomePage> {
           ),
           const Spacer(),
         ],
-        backgroundColor: MyApp.primaryColor,
+        backgroundColor: Config.primaryColor,
       ),
       body: const Center(
         child: Text(
           "Search Movies",
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            letterSpacing: 2.0,
-            color: Colors.grey,
-          ),
+          style: Config.mainMsgStyle,
         ),
       ),
     );
