@@ -15,4 +15,10 @@ class Config {
 
   static const Color primaryColor = Color.fromARGB(255, 11, 17, 36);
   static const Color secondaryColor = Color.fromARGB(255, 19, 37, 85);
+  static const TextStyle mainMsgStyle = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+    letterSpacing: 2.0,
+    color: Colors.grey,
+  );
 }
