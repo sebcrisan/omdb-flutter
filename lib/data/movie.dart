@@ -27,7 +27,8 @@ class Movie {
 
 Future<List<Movie>> searchMovies(String query) async {
   final apiKey = Config.apiKey;
-  final url = Uri.parse('http://www.omdbapi.com/?apikey=$apiKey&s=$query');
+  final url =
+      Uri.parse('http://www.omdbapi.com/?apikey=$apiKey&s=$query&Type=movie');
 
   final response = await http.get(url);
 
