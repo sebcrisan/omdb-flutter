@@ -11,7 +11,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class MyHomePageState extends State<MyHomePage> {
-  // String selectedMovie = '';
   Movie selectedMovie = Movie(title: "", imdbID: "", year: "", poster: "");
   void searchMovies(BuildContext context) async {
     final result = await showSearch<Movie>(
