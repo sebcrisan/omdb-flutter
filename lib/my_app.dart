@@ -1,12 +1,5 @@
 import "package:flutter/material.dart";
-import 'config/app_config.dart';
 import 'screens/home/home_screen.dart';
-
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Config.load();
-  runApp(const MyApp(key: Key("MyApp")));
-}
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
