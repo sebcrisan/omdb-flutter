@@ -2,6 +2,10 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../config/app_config.dart';
 
+/** 
+ * A Movie class that contains data such as title, year, poster, plot (optional),
+ * for a given movie, based on imdbID.
+*/
 class Movie {
   final String imdbID;
   final String title;
@@ -16,6 +20,7 @@ class Movie {
       required this.poster,
       this.plot});
 
+  // Movie factory to convert json object to the data model
   factory Movie.fromJson(Map<String, dynamic> json) {
     return Movie(
       imdbID: json['imdbID'],
@@ -27,6 +32,7 @@ class Movie {
   }
 }
 
+// Search movies given a movie title and returns a list of movies
 Future<List<Movie>> searchMovies(String query) async {
   final apiKey = Config.apiKey;
   final url =
@@ -50,6 +56,7 @@ Future<List<Movie>> searchMovies(String query) async {
   return [];
 }
 
+// Search a singular movie given an imdbID and returns a movie
 Future<Movie> searchMovie(String imdbID) async {
   final apiKey = Config.apiKey;
   final url = Uri.parse('http://www.omdbapi.com/?apikey=$apiKey&i=$imdbID');
