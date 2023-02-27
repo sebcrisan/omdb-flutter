@@ -1,16 +1,26 @@
-# omdb
+# OMDB-Flutter
 
-A new Flutter project.
+A flutter test project that enables users to search for movies. Retrieves searched movie data using the omdb api and serves it to the user. Please note that no tests have been written for the code yet. It also uses [dart:io](https://api.dart.dev/stable/2.19.2/dart-io/dart-io-library.html) so it will not run on browser based apps.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+### 1. Get your OMDB API Key
 
-A few resources to get you started if this is your first Flutter project:
+You can get your API key for the OMDB API at the [OMDB Website](https://www.omdbapi.com/apikey.aspx).
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### 2. Configure files
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Paste your API key in [`config.example.json`](./config.example.json).
+
+### 3. Run the project
+
+You can run the project using the following command:
+
+```cmd
+flutter run -d windows --release
+```
+
+<details>
+  <summary>Note:</summary>
+  As of right now, the project will not work for browser based apps.
+</details>
