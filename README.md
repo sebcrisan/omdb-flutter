@@ -8,9 +8,10 @@ A flutter test project that enables users to search for movies. Retrieves search
 
 You can get your API key for the OMDB API at the [OMDB Website](https://www.omdbapi.com/apikey.aspx).
 
-### 2. Configure files
+### 2. Create config.json
 
-Paste your API key in [`config.example.json`](./config.example.json).
+- Rename [`config.example.json`](./config.example.json) to `config.json`;
+- Paste your API key in your renamed `config.json`.
 
 ### 3. Run the project
 
